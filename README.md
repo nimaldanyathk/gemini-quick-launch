@@ -8,7 +8,6 @@ A cross-platform desktop quick launcher for Gemini built with Electron.
 - **Smart Focus:** Auto-hides when Escape is pressed or window loses focus (blur).
 - **Session Preserved:** Google Login context persists between launches.
 - **Single Instance:** Prevents multiple windows from being opened simultaneously.
-- **Tray Icon:** Provides a system tray icon with "Show Gemini" and "Quit" options.
 
 ## Step-by-Step Setup Instructions
 
@@ -17,7 +16,7 @@ A cross-platform desktop quick launcher for Gemini built with Electron.
 - `npm` installed
 
 ### 2. Installations
-Go to the project folder (`/Users/nimaldanyathk/Downloads/gemini_app`) where the code resides, or open a terminal there and run:
+Go to the project folder where the code resides, or open a terminal there and run:
 ```bash
 npm install
 ```
