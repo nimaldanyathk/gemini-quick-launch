@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Gemini</title>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            background: rgba(25, 25, 25, 0.95);
+            border-radius: 12px;
+        }
+
+        .drag-region {
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-app-region: drag;
+            user-select: none;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            transition: background 0.2s ease;
+            position: relative;
+        }
+
+        .drag-region:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .drag-handle {
+            width: 40px;
+            height: 4px;
+            border-radius: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: background 0.2s ease;
+        }
+
+        .drag-region:hover .drag-handle {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .controls {
+            position: absolute;
+            right: 15px;
+            display: flex;
+            align-items: center;
+            -webkit-app-region: no-drag;
+            opacity: 0.3;
+            transition: opacity 0.2s ease;
+        }
+
+        .drag-region:hover .controls {
+            opacity: 1;
+        }
+
+        /* Custom sleek slider */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 80px;
+            background: rgba(255, 255, 255, 0.1);
+            height: 4px;
+            border-radius: 2px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.3);
+        }
+
+        #webview-container {
+            height: calc(100% - 24px);
+            background: transparent;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="drag-region">
+        <div class="drag-handle"></div>
+        <div class="controls">
+            <input type="range" id="opacitySlider" min="0.2" max="1.0" step="0.05" value="1.0"
+                title="Adjust Transparency">
+        </div>
+    </div>
+    <div id="webview-container"></div>
+
+    <script>
+        const { ipcRenderer } = require('electron');
+        const slider = document.getElementById('opacitySlider');
+
+        slider.addEventListener('input', (event) => {
+            ipcRenderer.send('set-opacity', parseFloat(event.target.value));
+        });
+    </script>
+</body>
+
+</html>
