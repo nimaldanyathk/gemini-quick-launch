@@ -42,6 +42,9 @@ function createWindow() {
         }
     });
 
+    // Ensures it can show up over full screen apps and across desktops
+    mainWindow.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });
+
     mainWindow.loadFile('index.html');
 
     view = new BrowserView({
@@ -166,7 +169,9 @@ function showWindow() {
     // Smooth fade-in to the target opacity
     mainWindow.setOpacity(0);
     mainWindow.show();
+    if (app.dock) app.dock.show(); // Required on Mac sometimes to pull focus securely
     mainWindow.focus();
+    mainWindow.moveTop();
 
     if (opacityInterval) clearInterval(opacityInterval);
     let opacity = 0;
@@ -192,6 +197,7 @@ function hideWindow() {
         if (opacity <= 0) {
             clearInterval(opacityInterval);
             mainWindow.hide();
+            if (app.dock) app.dock.hide(); // Hide dock icon again
             mainWindow.setOpacity(targetOpacity); // Reset opacity for next display tracking
         } else {
             mainWindow.setOpacity(opacity);
