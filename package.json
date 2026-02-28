@@ -1,32 +1,36 @@
 {
-  "name": "gemini-launcher",
-  "version": "1.0.0",
-  "description": "A cross-platform desktop quick launcher for Gemini",
-  "main": "main.js",
-  "scripts": {
-    "start": "electron .",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder"
-  },
-  "author": "",
-  "license": "MIT",
-  "dependencies": {},
-  "devDependencies": {
-    "electron": "^28.2.3",
-    "electron-builder": "^24.9.1"
-  },
-  "build": {
-    "appId": "com.gemini.launcher",
-    "productName": "Gemini Launcher",
-    "mac": {
-      "target": "dmg",
-      "category": "public.app-category.productivity"
+    "name": "gemini-launcher",
+    "version": "1.0.0",
+    "description": "A cross-platform desktop quick launcher for Gemini",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron .",
+        "pack": "electron-builder --dir",
+        "dist": "electron-builder"
     },
-    "win": {
-      "target": "nsis"
+    "author": "",
+    "license": "MIT",
+    "dependencies": {},
+    "devDependencies": {
+        "electron": "^28.2.3",
+        "electron-builder": "^24.9.1"
     },
-    "linux": {
-      "target": "AppImage"
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/nimaldanyathk/gemini-quick-launch.git"
+    },
+    "build": {
+        "appId": "com.gemini.launcher",
+        "productName": "Gemini Launcher",
+        "mac": {
+            "target": "dmg",
+            "category": "public.app-category.productivity"
+        },
+        "win": {
+            "target": "nsis"
+        },
+        "linux": {
+            "target": "AppImage"
+        }
     }
-  }
 }
