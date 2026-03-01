@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini Quick Launcher</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="glow-bg"></div>
+    <div class="glow-bg-2"></div>
+
+    <nav class="navbar">
+        <div class="logo">
+            <svg class="gemini-star" viewBox="0 0 24 24" width="24" height="24">
+                <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"
+                    fill="url(#gemini-gradient)" />
+                <defs>
+                    <linearGradient id="gemini-gradient" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#4F75FF" />
+                        <stop offset="0.5" stop-color="#9C89FF" />
+                        <stop offset="1" stop-color="#FF8A8A" />
+                    </linearGradient>
+                </defs>
+            </svg>
+            <span>Gemini Launcher</span>
+        </div>
+        <div class="nav-links">
+            <a href="https://github.com/nimaldanyathk/gemini-quick-launch" target="_blank" class="nav-link">GitHub</a>
+        </div>
+    </nav>
+
+    <main class="hero">
+        <div class="hero-content">
+            <div class="badge">Open Source Desktop App</div>
+            <h1 class="title">Your AI assistant,<br><span class="gradient-text">a keystroke away.</span></h1>
+            <p class="subtitle">A cross-platform, native-feeling desktop launcher for Google Gemini. Frameless,
+                translucent, and always ready.</p>
+
+            <div class="download-section">
+                <!-- Primary Button (Auto-detected) -->
+                <div id="primary-download" class="primary-download-wrapper">
+                    <a href="https://github.com/nimaldanyathk/gemini-quick-launch/releases/latest"
+                        class="btn btn-primary" id="main-download-btn">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Download for <span id="os-name">Desktop</span>
+                    </a>
+                    <p class="version-hint">Requires <span id="shortcut">Control+Space</span> to toggle</p>
+                </div>
+
+                <!-- Secondary OS links -->
+                <div class="other-platforms">
+                    <p>Also available for:</p>
+                    <div class="platform-links">
+                        <a href="https://github.com/nimaldanyathk/gemini-quick-launch/releases/latest"
+                            class="btn btn-secondary mac-link">macOS</a>
+                        <a href="https://github.com/nimaldanyathk/gemini-quick-launch/releases/latest"
+                            class="btn btn-secondary win-link">Windows</a>
+                        <a href="https://github.com/nimaldanyathk/gemini-quick-launch/releases/latest"
+                            class="btn btn-secondary linux-link">Linux</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="app-mockup">
+                <div class="mockup-header">
+                    <div class="mockup-drag"></div>
+                </div>
+                <div class="mockup-body">
+                    <div class="mockup-prompt">
+                        <div class="mockup-sparkle">✨</div>
+                        <span>Hello, how can I help?</span>
+                    </div>
+                    <div class="mockup-input">
+                        <div class="mockup-cursor"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const userAgent = navigator.userAgent.toLowerCase();
+            let os = 'Desktop';
+            let shortcut = 'Control+Space';
+
+            if (userAgent.includes('mac') && !userAgent.includes('iphone') && !userAgent.includes('ipad')) {
+                os = 'macOS';
+                document.querySelector('.mac-link').style.display = 'none';
+            } else if (userAgent.includes('win')) {
+                os = 'Windows';
+                shortcut = 'Ctrl+Space';
+                document.querySelector('.win-link').style.display = 'none';
+            } else if (userAgent.includes('linux')) {
+                os = 'Linux';
+                shortcut = 'Ctrl+Space';
+                document.querySelector('.linux-link').style.display = 'none';
+            }
+
+            document.getElementById('os-name').innerText = os;
+            document.getElementById('shortcut').innerText = shortcut;
+        });
+    </script>
+</body>
+
+</html>
