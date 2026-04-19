@@ -1,5 +1,10 @@
 # Gemini Quick Launcher
-
+> ## ⚠️ 
+>
+> Google now ships an **official Gemini desktop app for macOS**. Please use it instead:
+>
+> ### 👉 https://gemini.google/mac/
+>
 A cross-platform desktop quick launcher for Gemini built with Electron.
 
 ## Features
