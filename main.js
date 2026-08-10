@@ -166,6 +166,9 @@ function ensureView() {
             nodeIntegration: false,
             contextIsolation: true,
             sandbox: true,
+            // Named persistent partition => cookies, localStorage and login
+            // sessions are written to disk and kept across restarts.
+            partition: 'persist:assistants',
             userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
         }
     });
