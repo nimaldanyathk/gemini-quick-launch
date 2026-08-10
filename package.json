@@ -1,7 +1,7 @@
 {
-    "name": "gemini-launcher",
+    "name": "ai-quick-launcher",
     "version": "1.0.0",
-    "description": "A cross-platform desktop quick launcher for Gemini",
+    "description": "A cross-platform desktop quick launcher for Gemini, ChatGPT and Claude",
     "main": "main.js",
     "scripts": {
         "start": "electron .",
@@ -20,17 +20,27 @@
         "url": "https://github.com/nimaldanyathk/gemini-quick-launch.git"
     },
     "build": {
-        "appId": "com.gemini.launcher",
-        "productName": "Gemini Launcher",
+        "appId": "com.aiquicklauncher.app",
+        "productName": "AI Quick Launcher",
+        "publish": [
+            {
+                "provider": "github",
+                "owner": "nimaldanyathk",
+                "repo": "gemini-quick-launch"
+            }
+        ],
         "mac": {
             "target": "dmg",
-            "category": "public.app-category.productivity"
+            "category": "public.app-category.productivity",
+            "artifactName": "AI-Quick-Launcher-mac-${arch}.${ext}"
         },
         "win": {
-            "target": "nsis"
+            "target": "nsis",
+            "artifactName": "AI-Quick-Launcher-win-${arch}.${ext}"
         },
         "linux": {
-            "target": "AppImage"
+            "target": "AppImage",
+            "artifactName": "AI-Quick-Launcher-linux-${arch}.${ext}"
         }
     }
 }

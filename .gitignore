@@ -6,6 +6,7 @@ dist-linux/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+build.log
 .DS_Store
 *.pem
 .env
