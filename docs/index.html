@@ -4,115 +4,326 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gemini Quick Launcher</title>
+    <title>Halo — One shortcut. Every AI.</title>
+    <meta name="description"
+        content="Halo is a frameless, translucent desktop launcher for Gemini, ChatGPT and Claude. Summon any AI from anywhere with a single keystroke.">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='34' fill='none' stroke='black' stroke-width='10'/></svg>">
 </head>
 
 <body>
-    <div class="glow-bg"></div>
-    <div class="glow-bg-2"></div>
+    <div class="grain" aria-hidden="true"></div>
 
-    <nav class="navbar">
-        <div class="logo">
-            <svg class="gemini-star" viewBox="0 0 24 24" width="24" height="24">
-                <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"
-                    fill="url(#gemini-gradient)" />
-                <defs>
-                    <linearGradient id="gemini-gradient" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#4F75FF" />
-                        <stop offset="0.5" stop-color="#9C89FF" />
-                        <stop offset="1" stop-color="#FF8A8A" />
-                    </linearGradient>
-                </defs>
-            </svg>
-            <span>Gemini Launcher</span>
-        </div>
-        <div class="nav-links">
-            <a href="https://github.com/nimaldanyathk/gemini-quick-launch" target="_blank" class="nav-link">GitHub</a>
-        </div>
-    </nav>
+    <!-- ================= NAV ================= -->
+    <header class="nav" id="nav">
+        <a class="brand" href="#top">
+            <span class="brand-mark"></span>
+            <span class="brand-name">Halo</span>
+        </a>
+        <nav class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#how">How it works</a>
+            <a href="#download">Download</a>
+            <a class="nav-ghost" href="https://github.com/nimaldanyathk/gemini-quick-launch" target="_blank"
+                rel="noopener">GitHub ↗</a>
+        </nav>
+        <a class="nav-cta" href="#download">Get Halo</a>
+    </header>
 
-    <main class="hero">
-        <div class="hero-content">
-            <div class="badge">Open Source Desktop App</div>
-            <h1 class="title">Your AI assistant,<br><span class="gradient-text">a keystroke away.</span></h1>
-            <p class="subtitle">A cross-platform, native-feeling desktop launcher for Google Gemini. Frameless,
-                translucent, and always ready.</p>
+    <!-- ================= HERO ================= -->
+    <main id="top">
+        <section class="hero">
+            <div class="hero-eyebrow reveal">
+                <span class="dot"></span> Free &amp; open source · macOS &amp; Windows
+            </div>
+            <h1 class="hero-title reveal">
+                One shortcut.<br>
+                <em>Every</em> AI.
+            </h1>
+            <p class="hero-sub reveal">
+                Halo is a frameless, translucent launcher that floats above everything you do.
+                Summon <strong>Gemini</strong>, <strong>ChatGPT</strong> or <strong>Claude</strong>
+                from any app with a single keystroke — then get out of the way.
+            </p>
 
-            <div class="download-section">
-                <!-- Primary Button (Auto-detected) -->
-                <div id="primary-download" class="primary-download-wrapper">
-                    <a href="https://github.com/nimaldanyathk/gemini-quick-launch/releases/latest"
-                        class="btn btn-primary" id="main-download-btn">
-                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                            <polyline points="7 10 12 15 17 10"></polyline>
-                            <line x1="12" y1="15" x2="12" y2="3"></line>
+            <div class="hero-actions reveal">
+                <a class="btn btn-primary" id="primary-download" href="#download">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Download for <span id="os-name">desktop</span>
+                </a>
+                <a class="btn btn-line" href="#how">See how it works</a>
+            </div>
+
+            <p class="hero-meta reveal">
+                <span id="meta-shortcut">Option + Space</span> to summon
+                <span class="sep">·</span> v1.0 <span class="sep">·</span> ~90&nbsp;MB
+            </p>
+        </section>
+
+        <!-- ================= APP VISUAL ================= -->
+        <section class="showcase reveal">
+            <div class="window">
+                <div class="window-bar">
+                    <span class="handle"></span>
+                    <div class="window-tools">
+                        <span class="pill pill-on">Gemini</span>
+                        <span class="pill">ChatGPT</span>
+                        <span class="pill">Claude</span>
+                        <span class="slider"><span class="slider-thumb"></span></span>
+                    </div>
+                </div>
+                <div class="window-body">
+                    <p class="chooser-kicker">Choose your assistant</p>
+                    <div class="cards">
+                        <div class="card" style="--c:#8ab4f8">
+                            <span class="badge">
+                                <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+                                    <path
+                                        d="M12 2c.4 4.9 4.2 8.7 9.1 9.1-4.9.4-8.7 4.2-9.1 9.1-.4-4.9-4.2-8.7-9.1-9.1C7.8 10.7 11.6 6.9 12 2Z"
+                                        fill="#0b0b0c" />
+                                </svg>
+                            </span>
+                            <span class="card-name">Gemini</span>
+                        </div>
+                        <div class="card" style="--c:#10a37f">
+                            <span class="badge">
+                                <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+                                    <path
+                                        d="M12 3.5a4 4 0 0 1 3.9 3.1 4 4 0 0 1 2 6.9 4 4 0 0 1-3.9 5.1 4 4 0 0 1-6-.5 4 4 0 0 1-2-6.9 4 4 0 0 1 3.9-5.1A4 4 0 0 1 12 3.5Z"
+                                        fill="none" stroke="#0b0b0c" stroke-width="1.6" />
+                                </svg>
+                            </span>
+                            <span class="card-name">ChatGPT</span>
+                        </div>
+                        <div class="card" style="--c:#d97757">
+                            <span class="badge">
+                                <span class="badge-letter">✳</span>
+                            </span>
+                            <span class="card-name">Claude</span>
+                        </div>
+                    </div>
+                    <p class="chooser-foot">Switch anytime from the top bar</p>
+                </div>
+            </div>
+            <div class="showcase-glow" aria-hidden="true"></div>
+        </section>
+
+        <!-- ================= LOGO STRIP ================= -->
+        <section class="strip">
+            <span class="strip-label">Works natively with</span>
+            <div class="strip-marks">
+                <span>Gemini</span>
+                <span class="strip-dot">•</span>
+                <span>ChatGPT</span>
+                <span class="strip-dot">•</span>
+                <span>Claude</span>
+            </div>
+        </section>
+
+        <!-- ================= FEATURES ================= -->
+        <section class="section" id="features">
+            <div class="section-head reveal">
+                <span class="index">01 — Features</span>
+                <h2>Built to disappear<br>until you need it.</h2>
+            </div>
+
+            <div class="feature-grid">
+                <article class="feature reveal">
+                    <span class="feature-no">/01</span>
+                    <h3>Global summon</h3>
+                    <p>One keystroke brings the window to the front of any app, on any desktop — even over
+                        full-screen video.</p>
+                </article>
+                <article class="feature reveal">
+                    <span class="feature-no">/02</span>
+                    <h3>Three assistants</h3>
+                    <p>Pick Gemini, ChatGPT or Claude on open, and swap between them instantly without a reload.</p>
+                </article>
+                <article class="feature reveal">
+                    <span class="feature-no">/03</span>
+                    <h3>Dial the transparency</h3>
+                    <p>A live opacity slider lets the window melt into your screen so you can read what's behind it.</p>
+                </article>
+                <article class="feature reveal">
+                    <span class="feature-no">/04</span>
+                    <h3>Vanishes on blur</h3>
+                    <p>Click away or hit <kbd>Esc</kbd> and it fades out. Your place, your session — always kept.</p>
+                </article>
+                <article class="feature reveal">
+                    <span class="feature-no">/05</span>
+                    <h3>Frameless &amp; light</h3>
+                    <p>No chrome, no clutter. A single translucent pane that stays out of your way and out of your dock.
+                    </p>
+                </article>
+                <article class="feature reveal">
+                    <span class="feature-no">/06</span>
+                    <h3>Yours to keep</h3>
+                    <p>Open source, no account, no telemetry. Logins live in your own browser session, nowhere else.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- ================= HOW IT WORKS ================= -->
+        <section class="section" id="how">
+            <div class="section-head reveal">
+                <span class="index">02 — How it works</span>
+                <h2>Three keystrokes<br>to a smarter desktop.</h2>
+            </div>
+
+            <ol class="steps">
+                <li class="step reveal">
+                    <span class="step-no">01</span>
+                    <div>
+                        <h3>Install &amp; forget</h3>
+                        <p>Download for your platform and open once. Halo tucks itself into the menu bar and waits.</p>
+                    </div>
+                </li>
+                <li class="step reveal">
+                    <span class="step-no">02</span>
+                    <div>
+                        <h3>Press <kbd>Option</kbd> + <kbd>Space</kbd></h3>
+                        <p>From anywhere, the launcher fades in centered on your active screen. Choose your assistant.
+                        </p>
+                    </div>
+                </li>
+                <li class="step reveal">
+                    <span class="step-no">03</span>
+                    <div>
+                        <h3>Ask, then dismiss</h3>
+                        <p>Type your prompt. When you're done, click away — it disappears and your session is saved for
+                            next time.</p>
+                    </div>
+                </li>
+            </ol>
+        </section>
+
+        <!-- ================= DOWNLOAD ================= -->
+        <section class="section download" id="download">
+            <div class="section-head reveal">
+                <span class="index">03 — Download</span>
+                <h2>Get Halo.<br>It's free.</h2>
+            </div>
+
+            <div class="dl-grid">
+                <a class="dl-card reveal" id="dl-mac"
+                    href="https://github.com/nimaldanyathk/gemini-quick-launch/releases/latest/download/AI-Quick-Launcher-mac-arm64.dmg">
+                    <div class="dl-os">
+                        <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+                            <path
+                                d="M16.365 1.43c0 1.14-.417 2.2-1.11 2.98-.75.84-1.98 1.49-3.02 1.4-.13-1.09.42-2.24 1.09-2.97.75-.82 2.06-1.44 3.04-1.41zM20.5 17.02c-.55 1.27-.81 1.84-1.52 2.96-.99 1.57-2.39 3.52-4.12 3.54-1.54.02-1.93-1-4.02-.99-2.09.01-2.52 1.01-4.06.99-1.73-.02-3.06-1.78-4.05-3.35C-.03 16.9-.3 12.1 1.36 9.6c1.06-1.61 2.73-2.55 4.3-2.55 1.6 0 2.61 1.02 3.93 1.02 1.28 0 2.06-1.02 3.91-1.02 1.4 0 2.88.76 3.94 2.08-3.46 1.9-2.9 6.84.16 8.61z" />
                         </svg>
-                        Download for <span id="os-name">Desktop</span>
-                    </a>
-                    <p class="version-hint">Requires <span id="shortcut">Control+Space</span> to toggle</p>
-                </div>
+                    </div>
+                    <div class="dl-info">
+                        <span class="dl-for">Download for</span>
+                        <strong>macOS</strong>
+                        <span class="dl-note">Apple Silicon · .dmg</span>
+                    </div>
+                    <span class="dl-arrow">↓</span>
+                </a>
 
-                <!-- Secondary OS links -->
-                <div class="other-platforms">
-                    <p>Also available for:</p>
-                    <div class="platform-links">
-                        <a href="https://github.com/nimaldanyathk/gemini-quick-launch/releases/latest"
-                            class="btn btn-secondary mac-link">macOS</a>
-                        <a href="https://github.com/nimaldanyathk/gemini-quick-launch/releases/latest"
-                            class="btn btn-secondary win-link">Windows</a>
-                        <a href="https://github.com/nimaldanyathk/gemini-quick-launch/releases/latest"
-                            class="btn btn-secondary linux-link">Linux</a>
+                <a class="dl-card reveal" id="dl-win"
+                    href="https://github.com/nimaldanyathk/gemini-quick-launch/releases/latest/download/AI-Quick-Launcher-win-x64.exe">
+                    <div class="dl-os">
+                        <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor">
+                            <path d="M3 5.1 10.5 4v7.5H3V5.1zM11.5 3.9 21 2.5v9H11.5V3.9zM3 12.5h7.5V20L3 18.9v-6.4zM11.5 12.5H21V21.5l-9.5-1.3v-7.7z" />
+                        </svg>
                     </div>
-                </div>
+                    <div class="dl-info">
+                        <span class="dl-for">Download for</span>
+                        <strong>Windows</strong>
+                        <span class="dl-note">64-bit · installer .exe</span>
+                    </div>
+                    <span class="dl-arrow">↓</span>
+                </a>
             </div>
-        </div>
 
-        <div class="hero-visual">
-            <div class="app-mockup">
-                <div class="mockup-header">
-                    <div class="mockup-drag"></div>
-                </div>
-                <div class="mockup-body">
-                    <div class="mockup-prompt">
-                        <div class="mockup-sparkle">✨</div>
-                        <span>Hello, how can I help?</span>
-                    </div>
-                    <div class="mockup-input">
-                        <div class="mockup-cursor"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <p class="dl-alt reveal">
+                Intel Mac?
+                <a href="https://github.com/nimaldanyathk/gemini-quick-launch/releases/latest/download/AI-Quick-Launcher-mac-x64.dmg">Download
+                    x64 build</a>
+                <span class="sep">·</span>
+                On Linux?
+                <a href="https://github.com/nimaldanyathk/gemini-quick-launch/releases/latest">Grab the AppImage</a>
+                <span class="sep">·</span>
+                <a href="https://github.com/nimaldanyathk/gemini-quick-launch/releases">All releases</a>
+            </p>
+        </section>
     </main>
 
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer">
+        <div class="footer-top">
+            <a class="brand" href="#top">
+                <span class="brand-mark"></span>
+                <span class="brand-name">Halo</span>
+            </a>
+            <p>One shortcut. Every AI.</p>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 Halo · MIT Licensed</span>
+            <div class="footer-links">
+                <a href="https://github.com/nimaldanyathk/gemini-quick-launch" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://github.com/nimaldanyathk/gemini-quick-launch/releases">Releases</a>
+                <a href="#top">Back to top ↑</a>
+            </div>
+        </div>
+    </footer>
+
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const userAgent = navigator.userAgent.toLowerCase();
-            let os = 'Desktop';
-            let shortcut = 'Control+Space';
+        // ---- OS detection for the primary button + shortcut copy ----
+        (function () {
+            const ua = navigator.userAgent.toLowerCase();
+            const isWin = ua.includes('win');
+            const isMac = ua.includes('mac') && !ua.includes('iphone') && !ua.includes('ipad');
 
-            if (userAgent.includes('mac') && !userAgent.includes('iphone') && !userAgent.includes('ipad')) {
-                os = 'macOS';
-                document.querySelector('.mac-link').style.display = 'none';
-            } else if (userAgent.includes('win')) {
-                os = 'Windows';
-                shortcut = 'Ctrl+Space';
-                document.querySelector('.win-link').style.display = 'none';
-            } else if (userAgent.includes('linux')) {
-                os = 'Linux';
-                shortcut = 'Ctrl+Space';
-                document.querySelector('.linux-link').style.display = 'none';
+            const osName = document.getElementById('os-name');
+            const shortcut = document.getElementById('meta-shortcut');
+            const primary = document.getElementById('primary-download');
+            const macUrl = document.getElementById('dl-mac').getAttribute('href');
+            const winUrl = document.getElementById('dl-win').getAttribute('href');
+
+            if (isMac) {
+                osName.textContent = 'macOS';
+                primary.setAttribute('href', macUrl);
+            } else if (isWin) {
+                osName.textContent = 'Windows';
+                shortcut.textContent = 'Ctrl + Space';
+                primary.setAttribute('href', winUrl);
+            } else {
+                osName.textContent = 'desktop';
+                primary.setAttribute('href', '#download');
             }
+        })();
 
-            document.getElementById('os-name').innerText = os;
-            document.getElementById('shortcut').innerText = shortcut;
+        // ---- Scroll reveal ----
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach((e) => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('in');
+                    io.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.14, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.reveal').forEach((el, i) => {
+            el.style.setProperty('--d', (i % 6) * 60 + 'ms');
+            io.observe(el);
         });
+
+        // ---- Nav shrink on scroll ----
+        const nav = document.getElementById('nav');
+        const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 24);
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
     </script>
 </body>
 
