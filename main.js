@@ -10,6 +10,9 @@ let opacityInterval = null;
 let targetOpacity = 1.0;
 let currentService = null;
 let suppressBlurUntil = 0;
+// Tracks the *intended* visibility so a toggle pressed mid fade-animation does
+// the right thing (isVisible() still reports true during a fade-out).
+let isShown = false;
 
 // Height of the draggable titlebar defined in index.html.
 const TITLEBAR_HEIGHT = 40;
@@ -299,8 +302,10 @@ function createTray() {
 
 function toggleWindow() {
     if (!mainWindow) return;
-
-    if (mainWindow.isVisible()) {
+    // Use the intended-visibility flag rather than isVisible(): during a
+    // fade-out the window still reports visible, which made a quick second
+    // press get swallowed (the "sometimes Option+Space does nothing" bug).
+    if (isShown) {
         hideWindow();
     } else {
         showWindow();
@@ -311,6 +316,7 @@ let hasBeenShownOnce = false;
 
 function showWindow() {
     if (!mainWindow) return;
+    isShown = true;
 
     // Only center on the very first open so that if the user drags it somewhere
     // else, we respect their placement on future toggles.
@@ -346,6 +352,7 @@ function showWindow() {
 
 function hideWindow() {
     if (!mainWindow) return;
+    isShown = false;
 
     // Smooth fade-out
     if (opacityInterval) clearInterval(opacityInterval);
@@ -363,19 +370,46 @@ function hideWindow() {
     }, 15);
 }
 
-function registerShortcut() {
-    const shortcut = process.platform === 'darwin' ? 'Control+Space' : 'Control+Space';
-    const ret = globalShortcut.register(shortcut, () => {
-        toggleWindow();
-    });
-    if (!ret) {
-        console.error('Registration failed for shortcut', shortcut);
+// Toggle accelerators, in priority order. We bind every one the OS will grant,
+// so if the primary is momentarily stolen by another app a backup still fires.
+// (No Cmd/Ctrl+Shift+number combos — those clash with macOS screenshots.)
+const TOGGLE_ACCELERATORS = process.platform === 'darwin'
+    ? ['Alt+Space', 'Command+Shift+Space']
+    : ['Control+Space', 'Control+Shift+Space'];
+
+function registerShortcuts() {
+    let anyOk = false;
+    for (const accel of TOGGLE_ACCELERATORS) {
+        try {
+            // Re-registering is a no-op if we already own it; unregister first so
+            // repeated calls (on resume/activate) stay clean.
+            if (globalShortcut.isRegistered(accel)) globalShortcut.unregister(accel);
+            if (globalShortcut.register(accel, toggleWindow)) {
+                anyOk = true;
+            } else {
+                console.error('Could not register global shortcut', accel);
+            }
+        } catch (e) {
+            console.error('Shortcut registration error for', accel, e);
+        }
     }
+    if (!anyOk) console.error('No global toggle shortcut is active');
 }
 
 app.whenReady().then(() => {
     createWindow();
-    registerShortcut();
+    registerShortcuts();
+
+    // macOS occasionally drops global shortcuts after sleep or a Space switch.
+    // Re-register on wake and when the app is activated so the toggle keeps
+    // working reliably instead of silently going dead.
+    try {
+        const { powerMonitor } = require('electron');
+        powerMonitor.on('resume', registerShortcuts);
+        powerMonitor.on('unlock-screen', registerShortcuts);
+    } catch (e) { /* powerMonitor unavailable */ }
+
+    app.on('did-become-active', registerShortcuts);
 
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {
