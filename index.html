@@ -15,8 +15,10 @@
             padding: 0;
             height: 100%;
             overflow: hidden;
-            background: rgba(20, 20, 22, 0.96);
-            border-radius: 12px;
+            /* Fully transparent so the title bar strip isn't a solid black bar
+               when the window opacity is lowered. The chooser paints its own
+               solid panel; the loaded assistant paints the BrowserView. */
+            background: transparent;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             color: #e8e8ea;
         }
@@ -29,7 +31,12 @@
             padding: 0 12px;
             -webkit-app-region: drag;
             user-select: none;
-            background: rgba(255, 255, 255, 0.03);
+            /* Normal, visible strip at full opacity. Its background alpha is
+               driven live by the transparency slider (see script) so the bar
+               melts away together with the window instead of lingering as a
+               solid dark band when you increase transparency. */
+            background: rgba(24, 24, 28, 0.85);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
             gap: 8px;
         }
 
@@ -124,16 +131,20 @@
         /* ---------------- Chooser ---------------- */
         #chooser {
             position: absolute;
-            top: 40px;
+            top: 0;
             left: 0;
             right: 0;
             bottom: 0;
+            /* Sit behind the title bar (which floats on top) so the picker is one
+               continuous solid, readable panel with no transparent strip above. */
+            padding-top: 40px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             gap: 28px;
             background: rgba(20, 20, 22, 0.98);
+            border-radius: 12px;
         }
 
         .chooser-title {
@@ -286,13 +297,32 @@
             document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
         });
 
-        ipcRenderer.on('init-opacity', (e, value) => { slider.value = value; });
+        const titlebar = document.querySelector('.titlebar');
+
+        // Fade the title-bar's own background along with the transparency slider.
+        // Full opacity -> a normal visible strip; minimum -> fully see-through,
+        // so the bar melts away instead of leaving a dark band over the content.
+        function applyBarTransparency(value) {
+            const t = (value - 0.2) / 0.8;            // slider min is 0.2
+            const alpha = Math.max(0, Math.min(1, t)) * 0.85;
+            titlebar.style.background = `rgba(24, 24, 28, ${alpha.toFixed(3)})`;
+        }
+
+        ipcRenderer.on('init-opacity', (e, value) => {
+            slider.value = value;
+            applyBarTransparency(value);
+        });
 
         document.getElementById('homeBtn').addEventListener('click', () => ipcRenderer.send('open-chooser'));
 
         slider.addEventListener('input', (event) => {
-            ipcRenderer.send('set-opacity', parseFloat(event.target.value));
+            const value = parseFloat(event.target.value);
+            ipcRenderer.send('set-opacity', value);
+            applyBarTransparency(value);
         });
+
+        // Initialise the bar to match the slider's starting value.
+        applyBarTransparency(parseFloat(slider.value));
     </script>
 </body>
 
