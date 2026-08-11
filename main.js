@@ -94,12 +94,17 @@ function createWindow() {
     mainWindow = new BrowserWindow({
         width: 900,
         height: 650,
+        minWidth: 420,
+        minHeight: 360,
         show: false,
         frame: false,
         transparent: true,
         alwaysOnTop: true,
         resizable: true,
         fullscreenable: false,
+        // Avoids the OS trying to blur the transparent surface on every resize
+        // frame, which is a big source of resize jank on macOS.
+        hasShadow: false,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false
@@ -131,6 +136,12 @@ function createWindow() {
         }
     };
     mainWindow.webContents.on('before-input-event', handleEscape);
+
+    // Keep the hosted view glued to the window on every resize frame so it
+    // tracks the frame smoothly instead of snapping after the drag ends.
+    mainWindow.on('resize', layoutView);
+    mainWindow.on('enter-full-screen', layoutView);
+    mainWindow.on('leave-full-screen', layoutView);
 
     // Restore the last used service automatically so returning users land
     // straight in their assistant; first-time users see the chooser.
