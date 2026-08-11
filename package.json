@@ -17,7 +17,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/nimaldanyathk/gemini-quick-launch.git"
+        "url": "https://github.com/nimaldanyathk/viewport-ai-launcher.git"
     },
     "build": {
         "appId": "com.aiquicklauncher.app",
@@ -26,7 +26,7 @@
             {
                 "provider": "github",
                 "owner": "nimaldanyathk",
-                "repo": "gemini-quick-launch"
+                "repo": "viewport-ai-launcher"
             }
         ],
         "mac": {
